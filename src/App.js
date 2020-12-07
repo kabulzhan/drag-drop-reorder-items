@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { Route } from "react-router-dom";
+import { connect } from "react-redux";
+import * as actions from "./redux/actions";
 
-function App() {
+import Header from "./components/Header/Header";
+import ProductList from "./ProductList";
+
+function App({ getItems }) {
+  React.useEffect(() => {
+    getItems();
+  }, [getItems]);
+
+  console.log("App is being called");
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <Route component={ProductList} />
     </div>
   );
 }
 
-export default App;
+export default connect(null, actions)(App);
